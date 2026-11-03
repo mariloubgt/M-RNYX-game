@@ -1,0 +1,50 @@
+/* =================== notes book (kitchen) =================== */
+.nb-icon{position:absolute;left:1.6%;bottom:3%;z-index:30;width:clamp(44px,5vw,70px);background:none;border:none;padding:0;cursor:pointer;opacity:0;transform:translateY(10px) scale(.9);transition:opacity .5s,transform .5s;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.8))}
+.nb-icon.has{opacity:1;transform:none;pointer-events:auto}
+.nb-icon:hover{transform:scale(1.08) rotate(-3deg)}
+.nb-icon.got{animation:nbgot .7s ease-out}
+@keyframes nbgot{0%{transform:scale(1)}35%{transform:scale(1.3) rotate(-6deg);filter:drop-shadow(0 0 16px rgba(255,220,150,.9))}100%{transform:scale(1)}}
+.nb-icon svg{width:100%;display:block}
+.nb-count{position:absolute;right:-6px;top:-6px;min-width:22px;height:22px;border-radius:11px;background:#8e1014;color:#fff;font-family:var(--type);font-size:12px;display:flex;align-items:center;justify-content:center;border:2px solid #1a0f08}
+.nb-fly{position:fixed !important;z-index:96;margin:0;transition:transform .75s cubic-bezier(.5,0,.7,.4),opacity .75s;pointer-events:none;transform-origin:50% 50%}
+.nb{position:fixed;inset:0;z-index:95;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;
+  background:radial-gradient(ellipse at 50% 40%,rgba(60,32,18,.92),rgba(10,6,4,.97) 75%)}
+.nb.on{display:flex;animation:nbin .35s ease-out}
+@keyframes nbin{from{opacity:0}to{opacity:1}}
+.nb-top{width:min(1060px,96vw);display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px;gap:20px}
+.nb-title{font-family:"Caveat",cursive;font-weight:700;font-size:clamp(38px,5vw,64px);color:#f3ead6;line-height:1;text-shadow:0 2px 8px #000;transform:rotate(-3deg)}
+.nb-keys{font-family:var(--title);color:#e6dcc6;font-size:clamp(12px,1.4vw,17px);display:flex;align-items:center;gap:4px}
+.nb-book{position:relative;width:min(1060px,96vw);aspect-ratio:1.42;max-height:76vh;display:flex;filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))}
+.nb-book.flipR .nb-right,.nb-book.flipL .nb-left{animation:flip .32s ease-in-out}
+@keyframes flip{50%{transform:scaleX(.92);filter:brightness(.8)}}
+.nb-page{position:relative;flex:1;border-radius:6px;padding:5% 5% 4%;overflow:hidden;
+  background:repeating-linear-gradient(180deg,transparent 0 calc(2.7em - 1px),rgba(90,80,64,.28) calc(2.7em - 1px) 2.7em),
+    radial-gradient(ellipse at 50% 30%,#efe9dc,#ddd4c2 70%,#c9bea8);font-size:clamp(11px,1.45vw,19px);background-position:0 1.6em}
+.nb-left{border-right:1px solid #9a8f7b;box-shadow:inset -18px 0 26px -16px rgba(0,0,0,.45)}
+.nb-right{box-shadow:inset 18px 0 26px -16px rgba(0,0,0,.45)}
+.nb-rings{position:absolute;left:50%;top:3%;bottom:3%;width:5%;transform:translateX(-50%);z-index:2;
+  background:repeating-linear-gradient(180deg,transparent 0 3.2%,#2a2622 3.2% 4.1%,#8d8578 4.1% 5.1%,#2a2622 5.1% 5.9%,transparent 5.9% 9.2%)}
+.nb-rings::before{content:"";position:absolute;left:46%;top:0;bottom:0;width:8%;background:#3a2f26;border-radius:2px}
+.nb-name{font-family:"Caveat",cursive;font-weight:700;font-size:1.7em;color:#6b3a1c;line-height:1.1;margin:.4em 0 .5em .3em;transform:rotate(-1deg)}
+.nb-photo{position:relative;width:78%;margin:0 auto;transform:rotate(-2.5deg);background:#1a1714;padding:4%;box-shadow:0 8px 14px rgba(0,0,0,.45)}
+.nb-photo .tape{position:absolute;width:26%;height:9%;background:rgba(190,160,110,.7);box-shadow:0 1px 2px rgba(0,0,0,.2);z-index:2}
+.nb-photo .t1{left:-6%;top:-3%;transform:rotate(-32deg)}
+.nb-photo .t2{right:-6%;top:-3%;transform:rotate(30deg)}
+.nb-photo .keypage{width:100%;height:auto;aspect-ratio:1.1;transform:none;padding:6% 8%}
+.nb-photo .keypage .k-hd{font-size:.62em}
+.nb-photo .keygrid div{font-size:1.15em}
+.nb-photo .keygrid svg{width:40%}
+.nb-photo-paper{background:linear-gradient(170deg,#e9dfc4,#c9b994);aspect-ratio:1.2;padding:8%;display:flex;flex-direction:column;gap:7%}
+.nb-photo-paper .k-hd{font-family:var(--type);font-size:.6em;letter-spacing:.15em;color:#6e0e0e}
+.nb-photo-paper i{display:block;height:5%;background:rgba(60,45,30,.5);width:85%}
+.nb-photo-paper i:nth-child(odd){width:65%}
+.nb-where{font-family:"Caveat",cursive;font-size:1.05em;color:#5c4a36;margin:6% 0 0 8%;transform:rotate(-1deg)}
+.nb-num{position:absolute;right:7%;top:3%;font-family:"Caveat",cursive;font-size:1.9em;color:#2f2a24;border-bottom:1px solid #6b6255;padding:0 .3em}
+.nb-text{font-family:"Caveat",cursive;font-size:1.32em;color:#232019;line-height:2.03em;margin-top:2.6em;padding-left:.4em}
+.nb-text.dense{font-size:1.1em;line-height:2.4545em}
+.nb-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:64px;border:none;border-radius:6px;background:rgba(20,12,8,.65);color:#f3ead6;font-size:38px;line-height:1;cursor:pointer}
+.nb-arrow:disabled{opacity:.2;cursor:default}
+.nb-prev{left:-54px}.nb-next{right:-54px}
+.nb-close{margin-top:14px;background:rgba(20,12,8,.7);border:1px solid #6b4a30;color:#f3ead6;font-family:var(--title);letter-spacing:.25em;padding:9px 22px}
+.nb-close:hover{border-color:#c3231f}
+@media (max-width:760px){ .nb-prev{left:2px}.nb-next{right:2px}.nb-book{aspect-ratio:auto;flex-direction:column;max-height:none}.nb-rings{display:none} }

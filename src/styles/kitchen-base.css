@@ -1,0 +1,65 @@
+/* ---------- ROOM III : THE STOREROOM ---------- */
+#store{background:radial-gradient(ellipse at 50% 30%,#1b1410,#060505 70%);padding:88px 14px 40px}
+.store-head{text-align:center;margin-bottom:16px}
+.store-head h2{font-family:var(--title);font-weight:400;font-size:clamp(26px,4vw,40px);letter-spacing:.1em}
+.store-head p{font-style:italic;color:var(--bone-dim);font-size:16px;margin-top:4px}
+.room3{position:relative;max-width:1180px;margin:0 auto;aspect-ratio:16/10;overflow:hidden;border:1px solid #2a201a;
+  box-shadow:0 30px 80px rgba(0,0,0,.8);
+  background:
+    linear-gradient(180deg,transparent 0 61%,#130e0b 61% 62.2%,transparent 62.2%),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 2px,transparent 2px 9%),
+    linear-gradient(180deg,transparent 0 62%,#3a2819 62%,#2a1c12 100%),
+    linear-gradient(180deg,transparent 0 44%,rgba(0,0,0,.25) 44% 45%,transparent 45%),
+    radial-gradient(ellipse at 30% 25%,rgba(80,90,70,.5),transparent 55%),
+    linear-gradient(180deg,#3b4136,#2c3029 62%)}
+.room3 .floorlines{position:absolute;left:0;right:0;top:62%;bottom:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0 22px,rgba(0,0,0,.35) 22px 24px)}
+.r3-static,.r3-mark,.r3-obj{position:absolute}
+.r3-static svg,.r3-obj svg{width:100%;height:100%;display:block;overflow:visible}
+.r3-mark{transition:opacity .6s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none;color:#8e1014}
+.r3-mark svg{width:min(70%,64px);height:auto;filter:drop-shadow(0 0 3px rgba(195,35,31,.45))}
+.r3-mark .roman{font-family:var(--type);font-size:clamp(9px,1.3vw,15px);letter-spacing:.2em;color:#a51a1a}
+.r3-mark.decoy{color:#6d6658;font-family:var(--type);font-size:clamp(8px,1vw,12px);text-align:center;font-style:italic}
+.r3-obj{cursor:grab;touch-action:none;z-index:10;transition:filter .2s}
+.r3-obj:hover{filter:brightness(1.25) drop-shadow(0 0 6px rgba(255,220,160,.35))}
+.r3-obj.dragging{cursor:grabbing;filter:brightness(1.3) drop-shadow(0 12px 14px rgba(0,0,0,.7));z-index:30}
+.keypage{pointer-events:auto !important;cursor:zoom-in;background:linear-gradient(170deg,#e4d8ba,#bfae88);color:#2b2118;
+  width:92%;height:92%;padding:6% 5%;display:flex;flex-direction:column;box-shadow:0 4px 10px rgba(0,0,0,.6);transform:rotate(-2deg)}
+.keypage .k-hd{font-family:var(--type);font-size:clamp(6px,.8vw,10px);letter-spacing:.15em;color:#6e0e0e;text-align:center;margin-bottom:4%}
+.keygrid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:3%}
+.keygrid div{display:flex;align-items:center;justify-content:center;gap:6%;font-family:var(--type);font-size:clamp(8px,1.1vw,14px)}
+.keygrid svg{width:46%;height:auto;color:#2b2118}
+.lampcone{position:absolute;left:50%;top:-4%;width:70%;height:110%;transform-origin:50% 0;pointer-events:none;z-index:40;
+  background:radial-gradient(ellipse 45% 60% at 50% 8%,rgba(255,214,150,.22),transparent 70%);animation:swing 6s ease-in-out infinite;margin-left:-35%}
+.lampbulb{position:absolute;left:50%;top:0;width:3%;transform-origin:50% 0;z-index:41;pointer-events:none;animation:swing 6s ease-in-out infinite;margin-left:-1.5%}
+@keyframes swing{0%,100%{transform:rotate(7deg)}50%{transform:rotate(-7deg)}}
+.room3-dark{position:absolute;inset:0;pointer-events:none;z-index:39;background:radial-gradient(ellipse at 50% 35%,transparent 35%,rgba(0,0,0,.6) 100%)}
+.r3-tip{text-align:center;font-family:var(--type);font-size:12px;letter-spacing:.25em;color:#6f655a;margin-top:14px;animation:pulse 2.6s infinite}
+.zoom{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;cursor:zoom-out}
+.zoom.show{display:flex}
+.zoom .keypage{width:min(420px,88vw);height:auto;aspect-ratio:.72;padding:28px 24px;transform:rotate(-1deg);cursor:zoom-out}
+.zoom .keypage .k-hd{font-size:14px}
+.zoom .keygrid div{font-size:22px}
+.r3-drawer{position:absolute;z-index:9;cursor:pointer;transition:transform .5s}
+.r3-drawer svg{width:100%;height:100%;display:block}
+.r3-drawer.open{transform:translateY(38%) scale(1.06)}
+.r3-drawer .dr-paper{position:absolute;left:12%;right:12%;top:-30%;height:50%;background:linear-gradient(170deg,#e9dfc4,#c9b994);transform:rotate(-4deg);opacity:0;pointer-events:none;transition:opacity .4s .2s;cursor:zoom-in;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.r3-drawer.open .dr-paper{opacity:1;pointer-events:auto}
+.keypage.torn0{clip-path:polygon(0 0,100% 0,96% 12%,100% 25%,94% 40%,100% 55%,95% 70%,100% 85%,96% 100%,0 100%)}
+.keypage.torn1{clip-path:polygon(4% 0,100% 0,100% 100%,3% 100%,0 86%,5% 72%,0 58%,4% 42%,0 28%,5% 14%)}
+.keypage.torn0 .keygrid,.keypage.torn1 .keygrid{grid-template-columns:repeat(2,1fr)}
+.keypage .rounds{font-family:var(--type);font-size:clamp(12px,2vw,16px);line-height:1.7;text-align:left}
+.zoom .keypage.rnote{aspect-ratio:auto;width:min(480px,90vw)}
+#store .answer-bar{position:static;background:none;padding-top:24px}
+#seance{padding-bottom:40px}
+#seance .answer-bar{position:static;background:none;padding-top:30px}
+@media (max-width:760px){
+  .corridor{grid-template-columns:repeat(3,1fr);top:17%;row-gap:22px}
+  .door{max-width:92px}
+  .file{font-size:10px;padding:8px}
+  .file .name,.file .bin{font-size:12.5px}
+  .note{width:170px;top:auto;bottom:16%;right:auto;left:4%}
+  .corridor{top:24%}
+  .scene{min-height:900px}
+  .candle{display:none}
+}

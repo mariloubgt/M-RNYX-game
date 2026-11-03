@@ -1,0 +1,46 @@
+/* ---------- ROOM I : walkable corridor ---------- */
+.ward-head{top:48px}
+.ward-stage{padding:112px 12px 128px}
+.scene.hallway{width:min(100%, calc((100vh - 240px) * 1.8317));--r:22cqw;cursor:crosshair}
+.hw-cam{position:absolute;inset:0;will-change:transform}
+.hw-bg{filter:sepia(.2) contrast(1.08) brightness(1.08)}
+.scene.hallway .darkness{background:radial-gradient(circle var(--r) at var(--x) var(--y),rgba(0,0,0,0) 0%,rgba(0,0,0,.08) 40%,rgba(0,0,0,.62) 100%)}
+.scene.hallway.flicker .darkness{--r:6cqw;background:rgba(0,0,0,.8)}
+.beam-tint{background:radial-gradient(circle calc(var(--r) * .8) at var(--x) var(--y),rgba(255,236,190,.55),transparent 70%)}
+.lampglow{background:radial-gradient(ellipse,rgba(225,255,245,.55),rgba(200,240,225,.12) 45%,transparent 70%)}
+.hw-door{cursor:pointer}
+.hw-door:hover{box-shadow:0 0 0 2px rgba(255,220,150,.55),0 0 26px rgba(255,210,140,.3)}
+.hw-inspect{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);font-family:var(--type);font-size:1.1cqw;letter-spacing:.2em;color:#ffe3b0;background:rgba(0,0,0,.6);padding:.3em .7em;opacity:0;transition:opacity .2s;white-space:nowrap}
+.hw-door:hover .hw-inspect{opacity:1}
+.hw-paper{cursor:pointer}
+.hw-veil{position:absolute;inset:0;z-index:56;background:#000;opacity:0;pointer-events:none;transition:opacity .45s}
+.hw-veil.on{opacity:1}
+#hwMarks{position:absolute;inset:0;z-index:54;pointer-events:none}
+.hw-mark{position:absolute;transform:translate(-50%,-50%);width:3.4cqw;height:3.4cqw;min-width:24px;min-height:24px;border-radius:50%;pointer-events:auto;cursor:pointer;
+  border:2px solid rgba(255,214,140,.9);background:rgba(20,10,5,.55);color:#ffe3b0;font-family:var(--type);font-size:max(13px,1.6cqw);display:flex;align-items:center;justify-content:center;padding:0;
+  box-shadow:0 0 14px rgba(255,190,90,.6);animation:markpulse 1.8s infinite}
+.hw-mark.done{border-color:rgba(143,160,123,.95);color:#cfe0b8;box-shadow:0 0 10px rgba(143,160,123,.5);animation:none}
+@keyframes markpulse{50%{box-shadow:0 0 26px 6px rgba(255,190,90,.75)}}
+.hw-section{position:absolute;top:2.5%;left:50%;transform:translateX(-50%);z-index:55;font-family:var(--type);font-size:max(11px,1.1cqw);letter-spacing:.3em;color:#efe7d4;background:rgba(0,0,0,.6);border:1px solid #3a342d;padding:.5em 1.1em}
+.hw-walk{position:absolute;left:50%;transform:translateX(-50%);z-index:55;display:flex;align-items:center;gap:.6em;background:rgba(10,8,7,.72);border:1px solid rgba(255,214,140,.6);color:#ffe3b0;
+  font-family:var(--title);letter-spacing:.25em;font-size:max(12px,1.35cqw);padding:.55em 1.3em;cursor:pointer;transition:.2s}
+.hw-walk span{font-size:.9em}
+.hw-walk.fwd{top:66%;animation:markpulse 1.8s infinite}
+.hw-walk.back{bottom:3%}
+.hw-walk:hover:not(:disabled){background:rgba(142,16,20,.8);border-color:#ff8a70;color:#fff}
+.hw-walk:disabled{opacity:.25;cursor:default;animation:none}
+.scene.hallway .ward-tip{bottom:12%;color:#b9a986}
+.closeup{background:rgba(0,0,0,.6)}
+.hw-scrawl.s2{top:74%;font-size:3.2cqw;opacity:.9}
+.hw-cam{backface-visibility:hidden;transform:translateZ(0)}
+.hw-cam.bob{animation:bob 1.85s ease-in-out}
+@keyframes bob{0%,100%{translate:0 0}20%{translate:.25% -.7%}45%{translate:0 0}70%{translate:-.25% -.7%}}
+.hw-ghostview{position:absolute;inset:0;z-index:7;will-change:transform,opacity}
+.hw-veil.dim{opacity:.28;transition:opacity .7s ease}
+.entry-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:9;background:#000;opacity:0;pointer-events:none;transition:opacity .8s}
+.entry-vid.on{opacity:1}
+.entry-skip{position:absolute;right:24px;bottom:24px;z-index:12;display:none;background:rgba(0,0,0,.55);border:1px solid #3a342d;color:#d8cfbd;font-family:var(--title);letter-spacing:.2em;font-size:13px;padding:9px 18px}
+.entry-skip.on{display:block}
+.entry-skip:hover{border-color:#c3231f;color:#fff}
+.scene.shake{animation:sshake .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes sshake{10%,90%{transform:translate(-3px,1px)}20%,80%{transform:translate(6px,-2px)}30%,50%,70%{transform:translate(-10px,3px)}40%,60%{transform:translate(10px,-3px)}}

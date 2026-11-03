@@ -1,16 +1,31 @@
-# React + Vite
+# ARENA — The Mansion
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A horror escape-room puzzle made by the NCS Club for Arena. Players ride an elevator through three rooms, each hiding one answer, to unlock the basement and the final phrase.
 
-Currently, two official plugins are available:
+## Running it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev       # development server
+npm run build     # production build in dist/
+npm run preview   # serve the production build
+npm run lint
+```
 
-## React Compiler
+The game needs a web server, so opening `index.html` directly won't work. It deploys to Vercel with the default Vite settings.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To serve it on a local network over plain HTTP, run `npm run build`, then `npm run preview -- --host`.
 
-## Expanding the Oxlint configuration
+## Changing the ending or an answer
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The ending is encrypted, and its plaintext is kept out of the repository in `secrets/ending.json`. That file is gitignored, so keep your own copy somewhere safe. See `scripts/encrypt-ending.mjs` for its format, then run `npm run encrypt-ending` after any change and commit the regenerated `src/game/endingCipher.js`.
+
+## Project layout
+
+- `src/screens/`: one component per screen
+- `src/components/`: pieces shared between screens
+- `src/game/`: game state, audio, media list, answers and ending encryption
+- `src/styles/`: the stylesheet, imported in cascade order
+- `public/media/`: video, images and sounds used by the game
+- `source-assets/`: original files that aren't deployed
+- `src/prototype/asylum.html`: the original single-file game, kept for reference (its Séance Room is the old version)

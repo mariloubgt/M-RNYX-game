@@ -1,0 +1,73 @@
+/* =================== ROOM III : the haunted kitchen =================== */
+#store{padding:84px 12px 40px}
+.k-scene{position:relative;width:min(1240px,100%,calc((100vh - 230px) * 1.7778));aspect-ratio:16/9;margin:0 auto;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.85);border:1px solid #1d2326}
+.k-scene.shake{animation:sshake .45s cubic-bezier(.36,.07,.19,.97)}
+.k-base{position:absolute;inset:0;background-size:100% 100%}
+.k-open{position:absolute;perspective:420px;z-index:3}
+.k-open.open{z-index:5}
+.hinge-left .k-in{justify-content:flex-end;padding-right:6%}
+.hinge-right .k-in{justify-content:flex-start;padding-left:6%}
+.k-in{position:absolute;inset:0;background:linear-gradient(180deg,#0a1316,#111b1f 55%,#070b0d);box-shadow:inset 0 0 22px 6px rgba(0,0,0,.9),inset 0 -6px 10px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.k-cab .k-in::before{content:"";position:absolute;left:0;right:0;top:48%;height:3px;background:#1a2024;box-shadow:0 1px 0 #000}
+.k-oven .k-in{background:radial-gradient(ellipse at 50% 40%,#151515,#030303 75%);}
+.k-oven .k-in::before{content:"";position:absolute;left:8%;right:8%;top:45%;height:2px;background:repeating-linear-gradient(90deg,#3a3a3a 0 3px,transparent 3px 9px)}
+.k-door .k-in{background:radial-gradient(ellipse at 40% 50%,#07090a,#000 70%)}
+.k-panel{position:absolute;inset:0;background-size:100% 100%;cursor:pointer;transition:transform .9s cubic-bezier(.3,.1,.25,1),filter .9s;will-change:transform;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.k-panel:hover{filter:brightness(1.35)}
+.hinge-left .k-panel{transform-origin:0 50%}
+.hinge-right .k-panel{transform-origin:100% 50%}
+.hinge-bottom .k-panel{transform-origin:50% 100%}
+.hinge-left.open .k-panel{transform:rotateY(-68deg);filter:brightness(.42)}
+.hinge-right.open .k-panel{transform:rotateY(68deg);filter:brightness(.42)}
+.hinge-bottom.open .k-panel{transform:rotateX(-64deg);filter:brightness(.4)}
+.k-door.open .k-panel{transform:rotateY(-58deg);filter:brightness(.4)}
+.hinge-drawer .k-panel{transition:transform .6s cubic-bezier(.3,.1,.25,1)}
+.hinge-drawer.open .k-panel{transform:translateY(95%) scale(1.18)}
+.hinge-drawer.open{z-index:6}
+.k-doorshade{position:absolute;z-index:4;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.85),rgba(0,0,0,.35));opacity:0;transition:opacity .9s}
+.k-doorshade.on{opacity:1}
+.k-mark{width:80%;height:80%;display:flex;align-items:center;justify-content:center;color:#b3161a;filter:drop-shadow(0 0 4px rgba(200,20,20,.6))}
+.k-mark svg{width:min(100%,64px);height:auto;max-height:100%}
+.k-wallmark{position:absolute;z-index:3;transition:opacity .6s;pointer-events:none;margin:0}
+.k-drag{position:absolute;z-index:5;cursor:grab;touch-action:none;user-select:none;transition:filter .2s}
+.k-drag:hover{filter:brightness(1.3) drop-shadow(0 0 6px rgba(255,210,150,.4))}
+.k-drag.dragging{cursor:grabbing;filter:brightness(1.3) drop-shadow(0 10px 12px rgba(0,0,0,.8));z-index:20}
+.k-paper{cursor:zoom-in;transform:rotate(-3deg)}
+.k-in .keypage.k-paper{width:78%;height:auto;aspect-ratio:.75;padding:6%}
+.k-in .keypage .k-hd{font-size:clamp(4px,.55vw,8px)}
+.k-in .keygrid div{font-size:clamp(5px,.7vw,10px)}
+.k-notepaper{width:70%;aspect-ratio:.8;background:linear-gradient(170deg,#e9dfc4,#c9b994);padding:8%;display:flex;flex-direction:column;gap:7%}
+.k-notepaper .k-hd{font-family:var(--type);font-size:clamp(5px,.6vw,9px);letter-spacing:.15em;color:#6e0e0e}
+.k-notepaper i{display:block;height:4%;background:rgba(60,45,30,.55)}
+.k-web{position:absolute;inset:0;width:100%;height:100%}
+.k-candles{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;transition:opacity .35s;
+  background:radial-gradient(ellipse 22% 26% at 82% 52%,rgba(4,10,14,.92),rgba(4,10,14,.55) 60%,transparent 100%),radial-gradient(ellipse 6% 10% at 6% 64%,rgba(4,10,14,.85),transparent 100%)}
+.k-candles.out{opacity:1}
+.k-seal{position:absolute;left:60.5%;top:42%;width:10%;aspect-ratio:1;z-index:8;pointer-events:none;border-radius:50%;opacity:0;transition:opacity 1.2s;mix-blend-mode:screen;
+  background:radial-gradient(circle,rgba(255,40,30,.75),rgba(255,0,0,.25) 45%,transparent 70%)}
+.k-seal.hot{opacity:1;animation:sealpulse 1.1s ease-in-out infinite}
+@keyframes sealpulse{50%{transform:scale(1.15);opacity:.7}}
+.k-vignette{position:absolute;inset:0;z-index:9;pointer-events:none;background:radial-gradient(ellipse at 55% 50%,transparent 50%,rgba(0,0,0,.55) 100%)}
+.k-flicker{position:absolute;inset:0;z-index:10;pointer-events:none;background:#000;opacity:0}
+.k-flicker.on{animation:kflick 1.4s steps(1)}
+@keyframes kflick{0%{opacity:0}8%{opacity:.85}14%{opacity:.1}22%{opacity:.92}40%{opacity:.95}46%{opacity:.2}52%{opacity:.8}70%{opacity:.88}78%{opacity:0}}
+/* the cupboard that slams by itself (the one already open in the picture) */
+.k-slamwrap{position:absolute;left:62.2%;top:22.5%;width:5.6%;height:18.9%;z-index:2;perspective:600px}
+.k-slam{position:absolute;inset:0;background-size:100% 100%;transform-origin:100% 50%;transform:rotateY(89deg);transition:transform .16s cubic-bezier(.7,0,1,.6);backface-visibility:hidden}
+.k-slam.shut{transform:rotateY(0deg)}
+.k-slam.creep{transition:transform 3.4s cubic-bezier(.4,0,.6,1);transform:rotateY(89deg)}
+.k-eyes{position:absolute;left:28%;top:40%;width:44%;display:flex;justify-content:space-between;opacity:0;transition:opacity .5s}
+.k-eyes i{width:5px;height:3px;border-radius:50%;background:#f3f0d8;box-shadow:0 0 6px 2px rgba(240,230,170,.55)}
+.k-eyes.on{opacity:.9}
+.k-eyes.blink i{animation:eblink .25s}
+@keyframes eblink{50%{transform:scaleY(.1)}}
+/* a figure passing behind the curtains */
+.k-winshadow{position:absolute;left:10.4%;top:26%;width:3.6%;height:29%;z-index:2;overflow:hidden;pointer-events:none}
+.k-winshadow div{position:absolute;bottom:-5%;left:-160%;width:120%;height:105%;opacity:.0;filter:blur(3px);
+  background:radial-gradient(ellipse 30% 14% at 50% 12%,#020405 60%,transparent 62%),radial-gradient(ellipse 48% 60% at 50% 62%,#020405 60%,transparent 63%)}
+.k-winshadow.pass div{animation:winpass 2.8s cubic-bezier(.45,0,.55,1)}
+@keyframes winpass{0%{left:-160%;opacity:0}12%{opacity:.85}88%{opacity:.85}100%{left:160%;opacity:0}}
+/* writing that seeps through the wallpaper */
+.k-write{position:absolute;left:16.8%;top:19%;width:16%;z-index:2;pointer-events:none;text-align:center;font-family:"Rubik Wet Paint",var(--title);font-size:clamp(18px,3vw,44px);line-height:1;color:#7a0b0b;
+  text-shadow:0 0 1px #3a0000,0 2px 3px rgba(0,0,0,.6);opacity:0;clip-path:inset(0 0 100% 0);transform:rotate(-4deg);transition:opacity 1.6s,clip-path 3s ease-out}
+.k-write.on{opacity:.92;clip-path:inset(-10% -10% -30% -10%)}

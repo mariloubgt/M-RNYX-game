@@ -1,0 +1,46 @@
+/* ---------- ROOM II : THE SEANCE ---------- */
+#seance{background:radial-gradient(ellipse at 50% 55%,#2a1a12 0%,#0c0807 55%,#050404 100%);padding:92px 16px 230px;transition:filter 1.2s}
+#seance.dark{filter:brightness(.35)}
+.seance-head{text-align:center;margin-bottom:22px}
+.table{display:flex;align-items:center;justify-content:center;gap:2vw;max-width:1100px;margin:0 auto}
+.candle{position:relative;width:34px;height:150px;flex:none}
+.candle .wax{position:absolute;bottom:0;left:4px;width:26px;height:110px;background:linear-gradient(90deg,#b9ac8f,#efe6cf 45%,#a99b7c);border-radius:4px 4px 2px 2px}
+.candle .wax::before{content:"";position:absolute;top:-2px;left:3px;width:9px;height:26px;background:#e9dfc6;border-radius:0 0 6px 6px}
+.candle .wick{position:absolute;bottom:110px;left:16px;width:2px;height:9px;background:#222}
+.candle .flame{position:absolute;bottom:116px;left:7px;width:20px;height:34px;border-radius:50% 50% 40% 40%/60% 60% 40% 40%;
+  background:radial-gradient(ellipse at 50% 75%,#fff7d6 0%,#ffcf5a 35%,#ff7a1a 65%,transparent 72%);
+  filter:blur(.6px);transform-origin:50% 90%;animation:burn 1.4s infinite alternate ease-in-out;transition:opacity .3s}
+.candle .glow{position:absolute;bottom:90px;left:-63px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,170,70,.22),transparent 65%);pointer-events:none;transition:opacity .4s}
+.candle .smoke{position:absolute;bottom:118px;left:12px;width:10px;height:10px;border-radius:50%;background:rgba(200,200,200,.4);filter:blur(4px);opacity:0}
+.candle.out .flame,.candle.out .glow{opacity:0}
+.candle.out .smoke{animation:smoke 2s ease-out}
+@keyframes burn{0%{transform:scale(1,1) rotate(-2deg)}50%{transform:scale(.92,1.08) rotate(2deg)}100%{transform:scale(1.04,.95) rotate(-1deg)}}
+@keyframes smoke{0%{opacity:.7;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-70px) scale(4)}}
+
+.board{position:relative;flex:1;max-width:720px;aspect-ratio:1.6;border-radius:26px;
+  background:
+    radial-gradient(ellipse at 50% 40%,rgba(255,220,160,.12),transparent 65%),
+    repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 3px,transparent 3px 11px),
+    linear-gradient(160deg,#9b7446,#6e4c2a 55%,#4c331c);
+  box-shadow:0 30px 70px rgba(0,0,0,.8),inset 0 0 0 10px #3a2614,inset 0 0 0 12px #b08d4f,inset 0 0 60px rgba(0,0,0,.6)}
+.glyph{position:absolute;transform:translate(-50%,-50%);font-family:var(--title);color:#1d120a;text-shadow:0 1px 0 rgba(255,230,180,.25);user-select:none;line-height:1}
+.glyph.letter{font-size:clamp(16px,3.4vw,34px)}
+.glyph.digit{font-size:clamp(16px,3vw,30px)}
+.glyph.word{font-size:clamp(14px,2.5vw,26px);letter-spacing:.15em}
+.glyph.lit{color:#5a0a0a;text-shadow:0 0 10px rgba(255,190,90,.9)}
+.ornament{position:absolute;opacity:.85;pointer-events:none}
+.planchette{position:absolute;left:50%;top:60%;width:clamp(70px,11vw,110px);transform:translate(-50%,-42%);z-index:5;
+  transition:left .95s cubic-bezier(.45,.05,.3,1),top .95s cubic-bezier(.45,.05,.3,1);filter:drop-shadow(0 12px 10px rgba(0,0,0,.6));pointer-events:none}
+.planchette.wobble{animation:wob .9s ease-in-out infinite}
+@keyframes wob{50%{margin-left:2px;margin-top:-2px}}
+
+.controls{max-width:820px;margin:30px auto 0;text-align:center}
+.asks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.ask{background:rgba(20,13,10,.85);border:1px solid #4a3527;color:var(--bone);padding:10px 18px;font-family:var(--body);font-style:italic;font-size:17px;transition:.2s}
+.ask:hover:not(:disabled){border-color:var(--blood-hi);box-shadow:0 0 16px rgba(195,35,31,.3)}
+.ask:disabled{opacity:.4;cursor:wait}
+.transcript{margin:22px auto 0;max-width:640px;background:linear-gradient(170deg,#e6dbbf,#c9b994);color:#2b2118;padding:14px 20px 16px;font-family:var(--type);box-shadow:0 8px 20px rgba(0,0,0,.6);transform:rotate(-.6deg);text-align:left}
+.transcript .t-hd{font-size:11px;letter-spacing:.25em;color:#6e0e0e;margin-bottom:6px}
+.transcript .t-body{font-size:19px;letter-spacing:.12em;min-height:30px;line-height:1.6;word-break:break-word}
+.transcript .t-line{display:block}
+.transcript .t-q{font-size:12px;letter-spacing:.05em;color:#5c4a36;font-style:italic;display:block;margin-top:6px}

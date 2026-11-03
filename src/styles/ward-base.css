@@ -1,0 +1,50 @@
+/* ---------- ROOM I : THE WARD ---------- */
+#ward{background:#000}
+.ward-head{position:absolute;top:58px;left:0;right:0;text-align:center;z-index:65;pointer-events:none}
+.ward-head h2,.seance-head h2{font-family:var(--title);font-weight:400;font-size:clamp(26px,4vw,40px);letter-spacing:.1em}
+.ward-head p,.seance-head p{font-style:italic;color:var(--bone-dim);font-size:16px;margin-top:4px}
+.scene{position:relative;height:100vh;min-height:640px;overflow:hidden;cursor:none;touch-action:none;
+  --x:50%;--y:45%;--r:150px;
+  background:
+    linear-gradient(180deg,transparent 0 76%,#1a1512 76% 77%,#0f0c0a 77%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 2px,transparent 2px 46px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 2px,transparent 2px 46px),
+    radial-gradient(ellipse at 20% 30%,#4b5244 0%,transparent 40%),
+    radial-gradient(ellipse at 75% 60%,#3b3a2c 0%,transparent 45%),
+    linear-gradient(180deg,#5a5e4f,#3f4237 76%)}
+.stain{position:absolute;border-radius:50%;filter:blur(6px);pointer-events:none}
+.corridor{position:absolute;left:4%;right:4%;top:29%;display:grid;grid-template-columns:repeat(6,1fr);gap:2.2%;align-items:end}
+.cell{display:flex;flex-direction:column;align-items:center;gap:14px}
+.door{position:relative;width:100%;max-width:100px;aspect-ratio:.52;background:
+    linear-gradient(90deg,rgba(0,0,0,.35),transparent 10%,transparent 90%,rgba(0,0,0,.45)),
+    repeating-linear-gradient(90deg,#3b2a20 0 18px,#33241b 18px 20px);
+  border:5px solid #241913;box-shadow:inset 0 0 30px rgba(0,0,0,.7),0 6px 0 #120d0a}
+.door::after{content:"";position:absolute;right:10%;top:52%;width:9px;height:22px;background:#6d5a3c;border-radius:3px;box-shadow:0 0 0 2px #2a1d14}
+.window{position:absolute;left:22%;right:22%;top:12%;height:20%;background:#050404;border:4px solid #1d1510;overflow:hidden}
+.window .bars{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 8px,#2c2d2b 8px 11px);z-index:2}
+.plate{position:absolute;left:50%;top:40%;transform:translateX(-50%);background:linear-gradient(#b08d4f,#7a5e2f);color:#1d140c;font-family:var(--title);font-size:13px;letter-spacing:.12em;padding:3px 9px;border:1px solid #3d2c14;white-space:nowrap;box-shadow:0 2px 3px rgba(0,0,0,.6)}
+.file{width:100%;max-width:150px;background:
+    radial-gradient(circle at 78% 72%,rgba(110,70,30,.28) 0 14px,transparent 15px),
+    linear-gradient(170deg,#e0d4b6,#bfb08d);
+  color:#2a2017;font-family:var(--type);font-size:11.5px;line-height:1.55;padding:10px 11px 12px;box-shadow:0 4px 10px rgba(0,0,0,.6);position:relative}
+.file::before{content:"";position:absolute;top:-6px;left:50%;width:10px;height:10px;border-radius:50%;background:#7d1212;transform:translateX(-50%);box-shadow:0 2px 2px rgba(0,0,0,.5)}
+.file .hd{font-size:9.5px;letter-spacing:.15em;border-bottom:1px dashed #6b5a44;padding-bottom:4px;margin-bottom:5px;color:#5c4a36}
+.file .name{font-size:15px;letter-spacing:.06em}
+.file .bin{font-size:15px;letter-spacing:.18em;color:#6e0e0e}
+.cell:nth-child(odd) .file{transform:rotate(-2.2deg)}
+.cell:nth-child(even) .file{transform:rotate(1.8deg)}
+.scrawl{position:absolute;font-family:var(--type);color:rgba(140,14,18,.75);pointer-events:none;letter-spacing:.12em;text-shadow:0 0 2px rgba(140,14,18,.5)}
+.note{position:absolute;right:3%;top:8%;width:220px;transform:rotate(3deg);font-size:11.5px !important;background:linear-gradient(170deg,#efe5cc,#cdbf9c);color:#2b2118;font-family:var(--type);font-size:12.5px;line-height:1.55;padding:14px 16px;box-shadow:0 6px 14px rgba(0,0,0,.7)}
+.note b{display:block;font-size:11px;letter-spacing:.2em;margin-bottom:6px;color:#6e0e0e}
+.ghost{position:absolute;width:44px;height:56px;left:50%;top:50%;transform:translate(-50%,-45%);z-index:1;transition:opacity .15s}
+.ghost.gone{opacity:0}
+.darkness{position:absolute;inset:0;pointer-events:none;z-index:50;
+  background:radial-gradient(circle var(--r) at var(--x) var(--y),rgba(0,0,0,0) 0%,rgba(0,0,0,.15) 45%,rgba(0,0,0,.965) 100%);transition:background .05s}
+.beam-tint{position:absolute;inset:0;pointer-events:none;z-index:49;mix-blend-mode:soft-light;
+  background:radial-gradient(circle calc(var(--r) * .9) at var(--x) var(--y),rgba(255,236,190,.5),transparent 70%)}
+.scene.flicker .darkness{--r:40px}
+.scene.out .darkness{background:#000}
+.flash-face{position:absolute;z-index:60;width:180px;opacity:0;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 0 20px rgba(255,255,255,.15))}
+.flash-face.on{opacity:.85}
+.ward-tip{position:absolute;bottom:130px;left:0;right:0;text-align:center;z-index:65;font-family:var(--type);font-size:12px;letter-spacing:.25em;color:#6f655a;pointer-events:none;animation:pulse 2.6s infinite}
+@keyframes pulse{50%{opacity:.35}}

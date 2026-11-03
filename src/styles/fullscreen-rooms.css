@@ -1,0 +1,58 @@
+/* =================== FULL-SCREEN ROOMS =================== */
+#ward,#seance,#store{position:relative;height:100vh;min-height:100vh;overflow:hidden;padding:0 !important;background:#000}
+/* every scene covers the whole screen at its own proportions (edges may be trimmed, never stretched) */
+.ward-stage{position:absolute;inset:0;padding:0 !important;display:block;min-height:0}
+.scene.hallway{position:absolute;left:50%;top:50%;
+  width:max(100vw, calc(100vh * 1.8317)) !important;min-width:0 !important;aspect-ratio:740/404;height:auto;
+  margin-left:calc(max(100vw, calc(100vh * 1.8317)) / -2);margin-top:calc(max(100vh, calc(100vw / 1.8317)) / -2);border:none;box-shadow:none}
+.nv-cam{position:absolute !important;left:50%;top:50%;margin:0;
+  width:max(100vw, calc(100vh * 1.7778));aspect-ratio:16/9;
+  margin-left:calc(max(100vw, calc(100vh * 1.7778)) / -2);margin-top:calc(max(100vh, calc(100vw / 1.7778)) / -2);border:none;box-shadow:none}
+.k-scene{position:absolute !important;left:50%;top:50%;margin:0;
+  width:max(100vw, calc(100vh * 1.7778)) !important;aspect-ratio:16/9;
+  margin-left:calc(max(100vw, calc(100vh * 1.7778)) / -2);margin-top:calc(max(100vh, calc(100vw / 1.7778)) / -2);border:none;box-shadow:none}
+
+/* titles float over the scene */
+.ward-head,.seance-head,.store-head{position:absolute !important;top:0 !important;left:0;right:0;z-index:60;margin:0 !important;padding:54px 20px 34px;text-align:center;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.78),rgba(0,0,0,.35) 60%,transparent)}
+.ward-head h2,.seance-head h2,.store-head h2{text-shadow:0 2px 12px #000}
+.ward-head p,.seance-head p,.store-head p{text-shadow:0 1px 8px #000;color:#cfc5b1}
+
+/* the answer box floats at the bottom of every room */
+#ward .answer-bar,#seance .answer-bar,#store .answer-bar{position:fixed !important;left:0;right:0;bottom:0;z-index:70;padding:40px 20px 18px;
+  background:linear-gradient(0deg,rgba(4,3,3,.92) 55%,rgba(4,3,3,.6) 80%,transparent) !important}
+
+/* ward controls pinned to the screen */
+#ward .hw-section{position:absolute;top:118px;left:50%;transform:translateX(-50%);z-index:61;font-size:12px}
+#ward .hw-walk{position:absolute;left:50%;transform:translateX(-50%);z-index:61;font-size:15px}
+#ward .hw-walk.fwd{top:auto;bottom:205px}
+#ward .hw-walk.back{bottom:150px}
+#ward .ward-tip{position:absolute;bottom:250px;left:0;right:0;z-index:61;font-size:12px}
+
+/* séance: board on the left, questions and the medium's notes in a panel on the right */
+#seance .ob-stage{width:62%;left:38%;top:54%}
+#seance .nv-c1{left:2%}
+#seance .nv-c2{right:auto;left:69.5%}
+#seance .controls{position:absolute;right:2.5%;top:50%;transform:translateY(-50%);width:min(380px,25vw);z-index:62;margin:0;text-align:left}
+#seance .asks{flex-direction:column;align-items:stretch}
+#seance .ask{text-align:left;font-size:16px}
+#seance .transcript{margin-top:16px;transform:rotate(-1deg);max-width:none}
+#seance .transcript .t-body{font-size:16px;min-height:60px}
+
+/* kitchen helpers pinned to the screen */
+#store .nb-icon{position:absolute;left:26px;bottom:150px;width:clamp(54px,4.6vw,74px)}
+#store .r3-tip{position:absolute;left:0;right:0;bottom:140px;z-index:61;margin:0;color:#cfc5b1;text-shadow:0 1px 6px #000;pointer-events:none}
+
+@media (max-width:900px){
+  #seance .ob-stage{width:92%;left:50%;top:40%}
+  #seance .nv-c1,#seance .nv-c2{display:none}
+  #seance .controls{left:3%;right:3%;top:auto;bottom:130px;transform:none;width:auto}
+  #seance .asks{flex-direction:row;flex-wrap:wrap}
+  #seance .transcript{display:block}
+}
+
+#ward .hw-section{top:142px}
+#seance > .nv-hud{position:absolute;inset:64px 22px 120px 22px;z-index:61}
+#seance > .nv-hud .hud-mode{right:4%}
+.k-panel{box-shadow:none}
+.k-open.open .k-panel{box-shadow:0 0 0 1px rgba(0,0,0,.4)}

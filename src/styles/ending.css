@@ -1,0 +1,7 @@
+/* ---------- END ---------- */
+#end{display:none;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:radial-gradient(ellipse at center,#1d0b0a,#050404 70%)}
+#end.active{display:flex}
+#end h2{font-family:var(--title);font-weight:400;font-size:clamp(40px,8vw,84px);letter-spacing:.06em;color:var(--bone)}
+#end h2 span{color:var(--blood-hi)}
+#end p{font-style:italic;color:var(--bone-dim);font-size:19px;max-width:560px;margin:16px auto 0;line-height:1.6}
+.code{display:inline-block;margin-top:30px;font-family:var(--type);font-size:22px;letter-spacing:.3em;border:1px dashed var(--blood);padding:14px 26px;color:var(--bone)}

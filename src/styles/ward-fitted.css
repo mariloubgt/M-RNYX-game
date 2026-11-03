@@ -1,0 +1,12 @@
+/* ---------- Room I fitted to the new corridor: open doorways, plate above, file beside ---------- */
+.hw-door .hw-plate{top:-7%;font-size:1.25cqw}
+.hw-door .hw-file{width:6.2cqw;height:5cqw;top:30%}
+.hw-door[data-side="L"] .hw-file{left:118%;transform:rotate(-3deg)}
+.hw-door[data-side="R"] .hw-file{left:auto;right:122%;transform:rotate(2.5deg)}
+.hw-door .hw-inspect{font-size:1cqw}
+.hw-paper{left:6%;top:30%;width:6.2%;height:12.5%}
+.hw-scrawl.s1{left:1.5%;top:6.5%}
+.hw-scrawl.s2{left:55.5%}
+.lampglow{background:radial-gradient(ellipse,rgba(225,255,245,.6),rgba(200,240,225,.14) 45%,transparent 70%)}
+.hw-door .hw-plate{top:3%}
+.hw-scrawl.s2{top:64%;font-size:2.6cqw}

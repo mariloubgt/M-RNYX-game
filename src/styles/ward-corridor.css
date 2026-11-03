@@ -1,0 +1,45 @@
+/* ---------- ROOM I : corridor version ---------- */
+.ward-stage{min-height:100vh;padding:138px 16px 160px;display:flex;justify-content:center;align-items:flex-start}
+.scene.hallway{width:min(100%, calc((100vh - 290px) * 1.8317));min-width:min(100%,560px);height:auto;min-height:0;aspect-ratio:740/404;background:#000;border:1px solid #1d1a17;box-shadow:0 30px 80px rgba(0,0,0,.9);container-type:inline-size;--r:15cqw}
+.hw-bg{position:absolute;inset:0;background-size:100% 100%;filter:sepia(.25) contrast(1.1) brightness(.9)}
+.hw-door{position:absolute;background:none;border:none;padding:0;cursor:none;z-index:5}
+.hw-door:hover{box-shadow:0 0 0 1px rgba(255,230,180,.35),0 0 18px rgba(255,220,160,.15)}
+.hw-plate{position:absolute;left:50%;top:35%;transform:translateX(-50%);white-space:nowrap;font-family:var(--title);font-size:calc(var(--w) * .085cqw);letter-spacing:.08em;color:#1d140c;
+  padding:.15em .5em;background:linear-gradient(#b08d4f,#7a5e2f);border:1px solid #3d2c14;box-shadow:0 1px 2px rgba(0,0,0,.6)}
+.hw-file{position:absolute;left:24%;top:52%;width:52%;height:16%;background:
+    repeating-linear-gradient(180deg,transparent 0 18%,rgba(60,45,30,.55) 18% 24%),linear-gradient(170deg,#e0d4b6,#bfb08d);
+  transform:rotate(-3deg);box-shadow:0 2px 4px rgba(0,0,0,.6)}
+.hw-paper{position:absolute;left:2.5%;top:31%;width:6.5%;height:13%;border:none;padding:0;cursor:none;z-index:5;transform:rotate(-4deg);
+  background:repeating-linear-gradient(180deg,transparent 0 14%,rgba(60,45,30,.5) 14% 18%),linear-gradient(170deg,#efe5cc,#cdbf9c);box-shadow:0 3px 8px rgba(0,0,0,.7)}
+.hw-paper:hover{outline:1px solid rgba(255,230,180,.4)}
+.hw-scrawl{position:absolute;font-family:"Rubik Wet Paint",var(--type);color:rgba(170,14,18,.85);pointer-events:none;z-index:4;line-height:1.05;text-shadow:0 0 3px rgba(140,14,18,.5)}
+.hw-scrawl.s1{left:2%;top:6%;font-size:3.1cqw;transform:perspective(400px) rotateY(28deg) rotate(-3deg);transform-origin:left center}
+.hw-scrawl.s2{left:50%;top:86%;font-size:2.6cqw;transform:translateX(-50%) perspective(300px) rotateX(55deg);opacity:.7;white-space:nowrap}
+.scene.hallway .ghost{position:absolute;height:auto;transform:translate(-50%,-50%);z-index:6;opacity:.92}
+.scene.hallway .ghost.gone{opacity:0}
+.lampglow{position:absolute;z-index:52;pointer-events:none;border-radius:50%;mix-blend-mode:screen;
+  background:radial-gradient(ellipse,rgba(220,255,240,.38),rgba(200,240,225,.08) 45%,transparent 70%);animation:lamp 7s infinite}
+.lampglow:nth-of-type(2n){animation-duration:11s;animation-delay:-3s}
+@keyframes lamp{0%,40%,44%,47%,100%{opacity:1}42%,46%{opacity:.15}}
+.scene.hallway .darkness{background:radial-gradient(circle var(--r) at var(--x) var(--y),rgba(0,0,0,0) 0%,rgba(0,0,0,.18) 45%,rgba(0,0,0,.94) 100%)}
+.scene.hallway.flicker .darkness{--r:4cqw}
+.scene.hallway .ward-tip{bottom:6%}
+.closeup{position:fixed;inset:0;z-index:76;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:20px}
+.closeup.on{display:flex}
+.cu-box{position:relative;animation:cuin .35s ease-out}
+@keyframes cuin{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.cu-x{position:absolute;right:-14px;top:-14px;z-index:3;width:34px;height:34px;border-radius:50%;background:#1a1411;border:1px solid #4a3f35;color:#efe7d4}
+.cu-door{position:relative;width:min(340px,80vw);aspect-ratio:.58;max-height:78vh;
+  background:radial-gradient(ellipse at 30% 70%,rgba(110,60,30,.45),transparent 40%),radial-gradient(ellipse at 80% 20%,rgba(90,50,25,.35),transparent 35%),linear-gradient(90deg,#5b5546,#8d856f 35%,#7c745f 70%,#4f4a3d);
+  border:10px solid #2e2a22;box-shadow:inset 0 0 50px rgba(0,0,0,.6),0 30px 80px rgba(0,0,0,.9)}
+.cu-window{position:absolute;left:30%;right:30%;top:9%;height:20%;background:#070606;border:6px solid #3a352b;overflow:hidden}
+.cu-window .bars{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 12px,#2c2d2b 12px 16px)}
+.cu-bar{position:absolute;left:0;right:0;top:44%;height:7%;background:linear-gradient(#58564f,#3a3833)}
+.cu-door .plate{top:33%;font-size:18px;padding:5px 14px}
+.cu-file{position:absolute !important;left:50%;top:56%;transform:translateX(-50%) rotate(-2deg) !important;width:72%;max-width:none;font-size:15px;padding:16px 16px 18px}
+.cu-file .name{font-size:22px}
+.cu-file .bin{font-size:24px}
+.cu-file .hd{font-size:11px}
+.note.cu-note{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:min(420px,86vw);font-size:16px !important;padding:24px 26px;transform:rotate(-1.5deg)}
+.note.cu-note b{font-size:13px}
+@media (max-width:760px){ .scene.hallway{min-height:0;width:100%} .ward-stage{padding-top:130px} }

@@ -1,0 +1,41 @@
+/* =================== INSIDE THE ELEVATOR (start page) =================== */
+#intro{display:none;position:relative;min-height:100vh;overflow:hidden;padding:80px 20px 40px;
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 0%,rgba(200,255,230,.12),transparent 70%),
+    linear-gradient(180deg,transparent 0 86%,#0b0c0c 86%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.015) 0 1px,transparent 1px 4px),
+    linear-gradient(90deg,#141716,#262a28 30%,#1f2321 70%,#121413)}
+#intro.active{display:flex;align-items:center;justify-content:center}
+#intro.ride{animation:ride .18s linear 7}
+@keyframes ride{0%,100%{transform:translate(0,0)}25%{transform:translate(-3px,2px)}50%{transform:translate(2px,-2px)}75%{transform:translate(-2px,-1px)}}
+.ceiling{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(700px,80vw);height:14px;display:flex;justify-content:space-around;z-index:1}
+.ceiling i{display:block;width:14%;height:100%;background:#e6fff6;box-shadow:0 0 34px 10px rgba(190,255,230,.25);border-radius:3px}
+#intro.ride .ceiling i{animation:tube .5s steps(1) 2}
+.rail{position:absolute;left:0;right:0;top:62%;height:12px;background:linear-gradient(180deg,#6b716e,#2b2f2d);box-shadow:0 6px 10px rgba(0,0,0,.6)}
+.tread{position:absolute;left:0;right:0;bottom:0;height:14%;background:radial-gradient(circle at 3px 3px,#3a3d3b 1.5px,transparent 2px) 0 0/14px 14px,#1b1d1c}
+.blood{position:absolute;right:16%;bottom:9%;width:70px;height:20px;border-radius:50%;background:radial-gradient(ellipse,#5e0a0a,transparent 70%)}
+.lift-wrap{position:relative;z-index:3;display:flex;gap:min(7vw,90px);align-items:center;justify-content:center;flex-wrap:wrap;max-width:1100px;width:100%}
+.wall-note{max-width:400px;text-align:center}
+.wall-note .wanna{font-family:"Rubik Wet Paint",var(--title);color:#d4161a;font-size:clamp(46px,7vw,84px);line-height:.95;transform:rotate(-5deg);text-shadow:0 0 14px rgba(212,22,26,.35);margin-bottom:26px}
+.wall-note .paper{background:linear-gradient(170deg,#e4d8ba,#c2b18c);color:#2b2118;font-family:var(--type);font-size:14px;line-height:1.6;padding:18px 20px;transform:rotate(1.5deg);box-shadow:0 8px 20px rgba(0,0,0,.6);text-align:left;position:relative}
+.wall-note .paper::before{content:"";position:absolute;top:-8px;left:50%;width:70px;height:18px;transform:translateX(-50%) rotate(-3deg);background:rgba(220,210,180,.55)}
+.panel{position:relative;width:min(380px,90vw);padding:28px 26px 30px;border-radius:6px;
+  background:linear-gradient(135deg,#5a605d,#2f3331 45%,#4a4f4c 80%,#2a2d2b);box-shadow:0 30px 60px rgba(0,0,0,.7),inset 0 0 0 2px #6f7672,inset 0 0 40px rgba(0,0,0,.5)}
+.panel .screw{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#aaa,#444)}
+.panel .screen-led{background:#080404;border:2px solid #555;color:#ff3b30;text-shadow:0 0 8px #ff3b30;font-family:var(--type);letter-spacing:.3em;text-align:center;padding:8px;font-size:18px;margin-bottom:22px}
+.floor{width:100%;display:flex;align-items:center;gap:18px;background:none;border:none;color:var(--bone);padding:10px 4px;text-align:left}
+.floor + .floor{border-top:1px solid rgba(0,0,0,.35)}
+.fbtn{flex:none;width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--type);font-size:30px;color:#ff6a5f;
+  border:3px solid #ff3b30;background:radial-gradient(circle at 40% 35%,#3a0a08,#110202);box-shadow:0 0 16px rgba(255,59,48,.55),inset 0 0 10px rgba(255,59,48,.4);transition:.2s}
+.floor:hover .fbtn{box-shadow:0 0 30px 6px rgba(255,59,48,.85),inset 0 0 14px rgba(255,59,48,.6);transform:scale(1.05)}
+.floor.pressed .fbtn{background:#ff3b30;color:#200}
+.flabel{font-family:var(--title);font-size:22px;letter-spacing:.06em;line-height:1.2}
+.flabel small{display:block;font-family:var(--type);font-size:11px;letter-spacing:.2em;color:#9a917f;margin-top:4px}
+.floor.solved .fbtn{border-color:#8fa07b;color:#cfe0b8;box-shadow:0 0 14px rgba(143,160,123,.5),inset 0 0 10px rgba(143,160,123,.3);background:radial-gradient(circle at 40% 35%,#1e2a18,#070a05)}
+.floor.solved .flabel small{color:var(--moss)}
+.floor.basement .fbtn{border-color:#3a3a3a;color:#555;box-shadow:none;background:#111}
+.floor.basement{cursor:not-allowed}
+.floor.basement.show{cursor:pointer}
+.floor.basement.show .fbtn{border-color:#ff3b30;color:#ff6a5f;animation:callpulse 1.2s infinite;background:radial-gradient(circle at 40% 35%,#3a0a08,#110202)}
+.blackout{position:fixed;inset:0;background:#000;z-index:84;opacity:0;pointer-events:none;transition:opacity .6s}
+.blackout.on{opacity:1}

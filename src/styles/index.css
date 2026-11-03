@@ -1,0 +1,20 @@
+/* Split from the original stylesheet. The import order is the original source order, and the cascade depends on it. */
+@import "./base.css";
+@import "./elevator-base.css";
+@import "./answer-bar.css";
+@import "./ward-base.css";
+@import "./seance-base.css";
+@import "./ending.css";
+@import "./kitchen-base.css";
+@import "./opening.css";
+@import "./elevator.css";
+@import "./menu.css";
+@import "./ward-corridor.css";
+@import "./ward-walkable.css";
+@import "./ward-woman.css";
+@import "./scares.css";
+@import "./seance-nightvision.css";
+@import "./kitchen.css";
+@import "./notebook.css";
+@import "./fullscreen-rooms.css";
+@import "./ward-fitted.css";
