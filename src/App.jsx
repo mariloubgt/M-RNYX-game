@@ -5,7 +5,7 @@ import Elevator from "./screens/Elevator.jsx";
 import Ward from "./screens/ward/Ward.jsx";
 import SeanceRoom from "./screens/seance/SeanceRoom.jsx";
 import Kitchen from "./screens/kitchen/Kitchen.jsx";
-import Ending from "./screens/Ending.jsx";
+import Basement from "./screens/basement/Basement.jsx";
 import ScareOverlays from "./components/ScareOverlays.jsx";
 import TopBar from "./components/TopBar.jsx";
 
@@ -26,7 +26,7 @@ function Game() {
       <Ward active={screen === "ward"} />
       <SeanceRoom active={screen === "seance"} />
       <Kitchen active={screen === "store"} />
-      <Ending active={screen === "end"} />
+      <Basement active={screen === "end"} />
     </>
   );
 }

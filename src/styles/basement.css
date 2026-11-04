@@ -1,0 +1,41 @@
+/* ---------- BASEMENT: the final scare and the final screen ---------- */
+/* Above the grain and vignette (z-index 89-90) so the black is truly black. */
+#end{display:none;position:fixed;inset:0;z-index:97;overflow:hidden;background:#000;min-height:0}
+#end.active{display:block}
+.bm-scene{position:absolute;inset:0;overflow:hidden;background:#000}
+
+/* Stacked bottom to top: face and flash, black, room, doors. The face is drawn under the
+   room from the first frame, so its first visible frame doesn't stutter. */
+.bm-shake{position:absolute;inset:0;will-change:transform}
+.bm-face,.bm-face canvas{position:absolute;left:50%;top:50%}
+/* transform-origin is the middle of her face: FACE_X and FACE_Y in basementScene.js */
+.bm-face canvas{will-change:transform,opacity;transform-origin:74.5% 43.2%}
+.bm-vignette{position:absolute;inset:-6%;background:radial-gradient(ellipse at center,rgba(30,0,0,0) 34%,rgba(42,2,2,.62) 66%,rgba(10,0,0,.96) 100%)}
+.bm-flash{position:absolute;inset:-6%;background:#b00000;opacity:0;will-change:opacity}
+.bm-black{position:absolute;inset:0;background:#000}
+.bm-room{position:absolute;inset:0;overflow:hidden;background:#000}
+
+/* Sized like background-size:cover and pinned to the top, so the lamp overlays stay on the
+   lamps in the picture and neither lamp is cropped on wide screens. */
+.bm-stage{position:absolute;top:0;left:50%;width:max(100vw,calc(100vh * 2304 / 1290));aspect-ratio:2304/1290;transform:translateX(-50%)}
+.bm-stage img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bm-dim{position:absolute;inset:0;background:#000;opacity:.35;will-change:opacity}
+.bm-glow,.bm-off{position:absolute;transform:translate(-50%,-50%);will-change:opacity}
+.bm-glow{background:radial-gradient(closest-side,rgba(226,240,255,.55),rgba(170,205,225,.16) 45%,rgba(170,205,225,0))}
+.bm-off{border-radius:50%;background:#101214;box-shadow:0 0 .6vw .2vw #101214;opacity:0}
+.bm-glow.l1{left:38.6%;top:9.2%;width:44%;height:58%}
+.bm-glow.l2{left:43%;top:28.2%;width:28%;height:32%}
+.bm-off.l1{left:38.6%;top:9.2%;width:11.8%;height:8.6%}
+.bm-off.l2{left:43%;top:28.2%;width:6.6%;height:3.4%}
+
+.bm-door{position:absolute;top:0;bottom:0;width:50.5%;background:linear-gradient(90deg,#141516,#222426 85%,#0a0a0b);will-change:transform}
+.bm-door.left{left:0}
+.bm-door.right{right:0;transform:scaleX(-1)}
+
+/* The final screen */
+.bm-final{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,4vh,44px);padding:24px;text-align:center;color:var(--bone);animation:bmfade 1s linear both}
+.bm-final h2{font-family:var(--title);font-weight:400;font-size:clamp(44px,8vw,112px);letter-spacing:.08em;line-height:1.05;color:var(--blood-hi)}
+.bm-phrase{font-family:var(--type);font-weight:700;font-size:clamp(24px,4.2vw,64px);letter-spacing:.06em;line-height:1.25;color:#fff}
+.bm-team{font-family:var(--title);font-size:clamp(20px,2.8vw,40px);letter-spacing:.14em;overflow-wrap:anywhere}
+.bm-final p{font-family:var(--body);font-size:clamp(20px,2.4vw,32px);color:var(--bone)}
+@keyframes bmfade{from{opacity:0}to{opacity:1}}

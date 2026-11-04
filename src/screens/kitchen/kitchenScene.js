@@ -35,17 +35,18 @@ export function initKitchenScene() {
   const HALVES = [KEY_ORDER.slice(0,6), KEY_ORDER.slice(6)];
   const keyHTML = h => `<div class="k-hd">THE WARDEN'S MARKS · ${h ? "II" : "I"}</div><div class="keygrid">${HALVES[h].map(k => `<div>${glyph(k)}<span>${k}</span></div>`).join("")}</div>`;
   // things that open (doors, cupboards, oven, drawer): x, y, w, h in pixels of the 1920x1080 picture
+  // at: where a mark sits inside, clear of the opened panel: left, top and size, each as a % of the opening's width
   const KOPEN = {
     ulL:   { r: [630, 235, 100, 220],   hinge: "left",   kind: "cab",  holds: { key: 0 } },
     ulR:   { r: [733, 235, 97, 220],   hinge: "right",  kind: "cab",  holds: { web: 1 } },
-    umL:   { r: [847, 342, 110, 115],   hinge: "left",   kind: "cab",  holds: { mark: "R" } },
+    umL:   { r: [847, 342, 110, 115],   hinge: "left",   kind: "cab",  holds: { mark: "R", at: [38.5, 23, 58] } },
     umR:   { r: [962, 342, 110, 115],   hinge: "right",  kind: "cab",  holds: { web: 1 } },
-    ovL:   { r: [852, 690, 103, 110],   hinge: "bottom", kind: "oven", holds: { mark: "W" } },
+    ovL:   { r: [852, 690, 103, 110],   hinge: "bottom", kind: "oven", holds: { mark: "W", at: [23, 3.5, 54] } },
     ovR:   { r: [960, 690, 108, 110],   hinge: "bottom", kind: "oven", holds: {} },
-    drawer:{ r: [1210, 660, 92, 32],hinge: "drawer", kind: "drawer", holds: { mark: "E" } },
+    drawer:{ r: [1210, 660, 92, 32],hinge: "drawer", kind: "drawer", holds: { mark: "E", at: [17.5, 5, 65] } },
     lcab:  { r: [736, 668, 98, 165],  hinge: "right",  kind: "cab",  holds: { note: 1 } },
     rcab:  { r: [1087, 655, 115, 175],  hinge: "left",   kind: "cab",  holds: { key: 1 } },
-    door:  { r: [433, 433, 140, 272],  hinge: "left",   kind: "door", holds: { mark: "N" } }
+    door:  { r: [433, 433, 140, 272],  hinge: "left",   kind: "door", holds: { mark: "N", at: [55, 75, 44] } }
   };
   // things you drag aside
   const KDRAG = {
@@ -57,7 +58,7 @@ export function initKitchenScene() {
   function contentHTML(h){
     if (h.key !== undefined) return `<div class="keypage torn${h.key} k-paper" data-key="${h.key}">${keyHTML(h.key)}</div>`;
     if (h.note) return `<div class="k-paper k-notepaper" data-note="1"><div class="k-hd">ROUNDS</div><i></i><i></i><i></i><i></i></div>`;
-    if (h.mark) return `<div class="k-mark">${glyph(h.mark)}</div>`;
+    if (h.mark) return `<div class="k-mark" style="margin:${h.at[1]}% 0 0 ${h.at[0]}%;width:${h.at[2]}%">${glyph(h.mark)}</div>`;
     if (h.web) return `<svg class="k-web" viewBox="0 0 100 100"><path d="M0 0L60 45M0 0L30 70M0 0L75 15M8 6Q20 18 6 30M18 14Q38 26 14 46M30 22Q52 34 22 60" stroke="#cfd6d2" stroke-width=".8" fill="none" opacity=".35"/></svg>`;
     return "";
   }

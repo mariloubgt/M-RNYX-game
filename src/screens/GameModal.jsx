@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGame } from "../game/GameContext.js";
 import { toggleMute, useAudioState } from "../game/audio.js";
 
@@ -48,17 +48,32 @@ function Floors() {
   );
 }
 
-function TeamForm({ onDone }) {
+// 2 to 24 characters after trimming, with at least one letter or digit in any alphabet.
+function isValidTeamName(name) {
+  const length = [...name].length;
+  return length >= 2 && length <= 24 && /[\p{L}\p{N}]/u.test(name);
+}
+
+function TeamForm({ onDone, onCancel }) {
   const { team, setTeam } = useGame();
   const inputRef = useRef(null);
+  const [value, setValue] = useState(team);
+  const [triedInvalid, setTriedInvalid] = useState(false);
+  const name = value.trim().toUpperCase();
+  const valid = isValidTeamName(name);
 
   useEffect(() => {
     const id = setTimeout(() => inputRef.current?.focus(), 50);
     return () => clearTimeout(id);
   }, []);
 
-  const done = (keep) => {
-    if (keep) setTeam(inputRef.current.value.trim().toUpperCase().slice(0, 24));
+  const submit = () => {
+    if (!valid) {
+      setTriedInvalid(true);
+      inputRef.current.focus();
+      return;
+    }
+    setTeam(name);
     onDone();
   };
 
@@ -72,33 +87,44 @@ function TeamForm({ onDone }) {
         id="teamInput"
         maxLength={24}
         placeholder="TEAM NAME"
-        defaultValue={team}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.stopPropagation();
-            done(true);
+            // Holding Enter on START GAME must not count as a submit once the input has focus.
+            if (!e.repeat) submit();
+          } else if (e.key === "Escape") {
+            onCancel();
           }
         }}
       />
+      {triedInvalid && !valid && (
+        <div className="gm-error" id="teamError" role="alert">Please enter your team name (2-24 characters).</div>
+      )}
       <div className="gm-actions">
-        <button className="ghost" id="teamSkip" onClick={() => done(false)}>SKIP</button>
-        <button className="btn" id="teamOk" onClick={() => done(true)}>CONTINUE</button>
+        {/* aria-disabled, not disabled: a disabled button ignores clicks, and a click here has to show the error. */}
+        <button className="btn" id="teamOk" aria-disabled={!valid} onClick={submit}>CONTINUE</button>
       </div>
     </>
   );
 }
 
-export default function GameModal({ name, open, onOpen, onClose, onTeamDone }) {
+export default function GameModal({ name, open, required, onOpen, onClose, onTeamDone }) {
   return (
     <div
       className={`gmodal${open ? " on" : ""}`}
       id="gmodal"
+      onMouseDown={(e) => {
+        // Clicks around the team form leave the cursor in the input, so Enter keeps working.
+        if (name === "team" && e.target.id !== "teamInput") e.preventDefault();
+      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div className="gm-box">
-        <button className="gm-close" id="gmClose" onClick={onClose}>✕</button>
+        {!required && <button className="gm-close" id="gmClose" onClick={onClose}>✕</button>}
         <div id="gmBody">
           {name === "howto" && <HowTo />}
           {name === "settings" && (
@@ -112,7 +138,7 @@ export default function GameModal({ name, open, onOpen, onClose, onTeamDone }) {
           )}
           {name === "credits" && <Credits />}
           {name === "floors" && <Floors />}
-          {name === "team" && open && <TeamForm onDone={onTeamDone} />}
+          {name === "team" && open && <TeamForm onDone={onTeamDone} onCancel={onClose} />}
         </div>
       </div>
     </div>

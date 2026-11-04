@@ -15,9 +15,30 @@
   background:radial-gradient(ellipse at center,rgba(0,0,0,.15),rgba(0,0,0,.65) 75%)}
 .title-screen.off{opacity:0;pointer-events:none}
 .ts-kicker{font-family:var(--type);letter-spacing:.5em;font-size:12px;color:#b9a986;opacity:0;animation:rise 1.2s 1.2s forwards}
-.ts-logo{font-family:var(--ui);font-weight:900;font-size:clamp(72px,15vw,180px);letter-spacing:.12em;line-height:1;color:#efe7d4;margin-top:10px;
-  text-shadow:0 0 40px rgba(195,35,31,.45),0 4px 0 #000;opacity:0;animation:rise 1.6s 1.8s forwards}
-.ts-sub{font-family:var(--ui);letter-spacing:.8em;font-size:clamp(14px,2vw,20px);color:#c3231f;margin-top:4px;opacity:0;animation:rise 1.2s 2.6s forwards}
+/* Layers, bottom to top: dark shadow (::after), red glow (::before), then the stone letters in
+   their own span. Shadows can't go on the stone itself: with background-clip:text they paint over
+   the fill, and so does any child layer of the element that owns the background. The glow pulses
+   on its own layer so only its opacity animates, not the text. The padding stops the stone being
+   cut off where the spiky letters stick out of their box; the margin cancels it. */
+.game-title{position:relative;isolation:isolate;display:inline-block;margin:-.2em -.12em;
+  font-family:"Metal Mania","New Rocker",var(--ui);font-weight:400;white-space:nowrap;
+  animation:title-dim 16s linear infinite}
+.game-title-stone{position:relative;display:block;padding:.2em .12em;color:transparent;
+  -webkit-text-stroke:max(1px,.011em) var(--stone-edge,#6b0b0b);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 200' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23d8d2c4' stroke-opacity='.55' stroke-width='1.6'%3E%3Cpath d='M38 34l22 28-9 21 26 30-14 24 20 33'/%3E%3Cpath d='M172 26l-16 34 21 19-12 30 19 22-8 39'/%3E%3Cpath d='M296 42l27 18 10 31 32 12 9 28 31 19'/%3E%3Cpath d='M452 22l-11 37 24 24-17 33 20 21-7 37'/%3E%3Cpath d='M566 150l29-24 26 7 18-31 34-5 13-30'/%3E%3Cpath d='M702 28l14 32-18 25 23 26-11 31 17 28'/%3E%3Cpath d='M838 36l-19 29 16 24-22 27 15 25-10 34'/%3E%3Cpath d='M906 158l21-27-8-26 27-19 3-32 24-22'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 -1.05'/%3E%3C/filter%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .8 0 0 0 0 .78 0 0 0 1.05 -.46'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23c)'/%3E%3Crect width='256' height='256' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(var(--stone-top,#4a4a4a) 22%,var(--stone-bottom,#151515) 80%);
+  background-size:100% 100%,256px 256px,100% 100%;
+  -webkit-background-clip:text;background-clip:text}
+.game-title::before,.game-title::after{content:attr(data-text);position:absolute;left:0;top:0;padding:.2em .12em;pointer-events:none}
+.game-title::before{z-index:-1;color:#8e1014;text-shadow:0 0 .05em #c3231f,0 0 .16em #c3231f,0 0 .38em #8e1014;will-change:opacity;animation:title-glow 4.5s ease-in-out infinite alternate}
+.game-title::after{z-index:-2;color:#000;text-shadow:0 .05em 0 #000,0 .08em .16em rgba(0,0,0,.95)}
+@keyframes title-glow{from{opacity:.55}to{opacity:1}}
+/* A dim at 7s and again at 16s, so the gaps alternate between 7 and 9 seconds. */
+@keyframes title-dim{0%,43.1%,44.4%,99.2%,100%{opacity:1}43.7%,99.6%{opacity:.68}}
+.ts-logo{font-size:clamp(44px,min(11.5vw,24vh),160px);letter-spacing:.03em;line-height:1;margin-top:10px;opacity:0;animation:rise 1.6s 1.8s forwards}
+.ts-sub{font-family:var(--body);font-style:italic;letter-spacing:.35em;padding-left:.35em;font-size:clamp(14px,1.6vw,20px);color:#b8b4ac;margin-top:8px;opacity:0;animation:rise 1.2s 2.6s forwards}
 .ts-press{margin-top:70px;font-family:var(--type);letter-spacing:.35em;font-size:13px;color:#efe7d4;opacity:0;animation:rise 1s 3.6s forwards,blink 1.6s 4.6s infinite}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes blink{50%{opacity:.25}}
@@ -25,8 +46,11 @@
 .menu-ui{position:absolute;inset:0;z-index:10;opacity:0;pointer-events:none;transition:opacity .9s}
 .menu-ui.on{opacity:1;pointer-events:auto}
 .hud-top{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;gap:20px}
-.hud-logo span{display:block;font-family:var(--ui);font-weight:900;font-size:30px;letter-spacing:.15em;color:#efe7d4;line-height:1}
-.hud-logo small{font-family:var(--type);font-size:10px;letter-spacing:.5em;color:#c3231f}
+/* The page vignette (z-index 89) darkens this corner by about two thirds, so the fill, edge and
+   glow start brighter here to end up looking like the big title. */
+.hud-logo .game-title{display:block;width:max-content;font-size:38px;letter-spacing:.03em;line-height:1;--stone-top:#b4b4b4;--stone-bottom:#5e5e5e;--stone-edge:#d0201c}
+.hud-logo .game-title::before{color:#c3231f;text-shadow:0 0 .06em #ff4a40,0 0 .2em #ff3a30,0 0 .42em #d4161a}
+.hud-logo small{display:block;margin-top:3px;font-family:var(--body);font-style:italic;font-size:11px;letter-spacing:.18em;color:#b8b4ac;white-space:nowrap}
 .hud-tabs{display:flex;align-items:center;gap:6px}
 .tab{background:none;border:none;color:#8f877a;font-family:var(--ui);font-size:15px;letter-spacing:.08em;padding:8px 22px;position:relative;transition:color .2s}
 .tab:hover{color:#efe7d4}
@@ -56,6 +80,7 @@
 .pg-label b{color:#efe7d4;font-weight:400}
 .pg-bar{height:10px;background:rgba(255,255,255,.08);border:1px solid #3a342d}
 .pg-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8e1014,#c3231f);transition:width .8s}
+.mm-warning{font-family:var(--ui);font-size:14px;letter-spacing:.03em;color:#d8cfbd;text-align:center}
 .keys{font-family:var(--ui);font-size:15px;color:#d8cfbd;display:flex;align-items:center;gap:4px}
 .keys .key + *{margin-right:10px}
 .build{position:absolute;right:34px;bottom:8px;font-family:var(--type);font-size:9px;letter-spacing:.15em;color:#5d554b}
@@ -73,8 +98,9 @@
 .toggle.on{background:#8e1014;border-color:#c3231f}
 .gm-input{width:100%;margin:10px 0 18px;background:#0e0a08;border:1px solid #4a3f35;color:#efe7d4;font-family:var(--ui);font-size:20px;letter-spacing:.08em;padding:12px 14px;outline:none;text-transform:uppercase}
 .gm-input:focus{border-color:#c3231f}
+.gm-error{margin:-10px 0 14px;color:#ff5a50;font-family:var(--ui);font-size:15px;letter-spacing:.04em}
 .gm-actions{display:flex;gap:10px;justify-content:flex-end}
-.gm-actions .ghost{background:none;border:1px solid #4a3f35;color:#b9a986;padding:12px 20px;font-family:var(--title);letter-spacing:.15em}
+.gm-actions .btn[aria-disabled="true"]{background:#2a2622;color:#7d7468;box-shadow:none;cursor:not-allowed}
 
 @media (max-width:820px){
   .hud-tabs,.lore,.keys{display:none}

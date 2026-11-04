@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ROOMS, useGame } from "../game/GameContext.js";
+import { devScreen } from "../game/startup.js";
 import { createScope } from "../game/scope.js";
 import { VIDEO } from "../game/media.js";
 import { ding, isMuted, scrape, setDroneLevel, thud, thunder, tick, toggleMute, unlockAudio, useAudioState } from "../game/audio.js";
@@ -9,22 +10,20 @@ import MainMenu from "./MainMenu.jsx";
 import ElevatorHall from "./ElevatorHall.jsx";
 import GameModal from "./GameModal.jsx";
 
-const startsInRoom = () => ROOMS.includes(location.hash.slice(1));
-
 // The opening sequence: title → main menu → entry video → elevator hall.
 export default memo(function Cinema() {
   const { solved, team } = useGame();
   const { muted } = useAudioState();
   const [stage, setStage] = useState("title"); // title | menu | going | game
   const [selected, setSelected] = useState(null);
-  const [modal, setModal] = useState({ name: null, open: false });
+  const [modal, setModal] = useState({ name: null, open: false, required: false });
   const [menuVideoIdle, setMenuVideoIdle] = useState(false);
   const [entryOn, setEntryOn] = useState(false);
   const [hall, setHall] = useState({ on: false, open: false, enter: false });
   const [indicator, setIndicator] = useState("- -");
   const [callDisabled, setCallDisabled] = useState(false);
   const [subtitle, setSubtitle] = useState({ on: false, text: "" });
-  const [cinema, setCinema] = useState(() => ({ gone: false, hidden: startsInRoom() }));
+  const [cinema, setCinema] = useState(() => ({ gone: false, hidden: Boolean(devScreen()) }));
 
   const cinemaRef = useRef(null);
   const menuVideoRef = useRef(null);
@@ -32,6 +31,7 @@ export default memo(function Cinema() {
   const flashRef = useRef(null);
   const leaveEntryRef = useRef(null);
   const afterTeamRef = useRef(null);
+  const teamRequiredRef = useRef(false);
   const selectedRef = useRef(null);
   const startedRef = useRef(false);
 
@@ -40,22 +40,26 @@ export default memo(function Cinema() {
     setTimeout(() => setSubtitle({ on: Boolean(text), text }), 600);
   }, []);
 
-  const openModal = useCallback((name, afterTeam) => {
-    if (!name) {
-      setModal((m) => ({ ...m, open: false }));
-      return;
-    }
-    tick();
-    if (afterTeam) afterTeamRef.current = afterTeam;
-    setModal({ name, open: true });
-  }, []);
-
   const finishTeamModal = useCallback(() => {
-    setModal((m) => ({ ...m, open: false }));
+    teamRequiredRef.current = false;
+    setModal((m) => ({ ...m, open: false, required: false }));
     const next = afterTeamRef.current;
     afterTeamRef.current = null;
     if (next) next();
   }, []);
+
+  // Every way of opening or closing the window comes through here, including menu buttons
+  // reached with Tab behind it, so this is what keeps the START GAME name prompt locked.
+  const openModal = useCallback((name, afterTeam) => {
+    if (teamRequiredRef.current) return;
+    if (!name) {
+      finishTeamModal();
+      return;
+    }
+    tick();
+    afterTeamRef.current = afterTeam ?? null;
+    setModal({ name, open: true, required: false });
+  }, [finishTeamModal]);
 
   const select = useCallback((index) => {
     const next = (index + MENU_ITEMS.length) % MENU_ITEMS.length;
@@ -108,7 +112,10 @@ export default memo(function Cinema() {
       } else if (team) {
         startGame();
       } else {
-        openModal("team", startGame);
+        tick();
+        teamRequiredRef.current = true;
+        afterTeamRef.current = startGame;
+        setModal({ name: "team", open: true, required: true });
       }
     },
     [openModal, startGame, team],
@@ -257,6 +264,7 @@ export default memo(function Cinema() {
       <GameModal
         name={modal.name}
         open={modal.open}
+        required={modal.required}
         onOpen={openModal}
         onClose={() => openModal(null)}
         onTeamDone={finishTeamModal}

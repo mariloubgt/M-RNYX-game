@@ -10,6 +10,10 @@ let muted = true;
 
 const decoded = {};
 const downloads = {};
+let decoding = null;
+
+// Resolves once every sound is decoded, or straight away if sound was never turned on.
+export const soundsReady = () => decoding ?? Promise.resolve();
 
 export function preloadAudio() {
   for (const [name, url] of Object.entries(SOUNDS)) {
@@ -53,7 +57,7 @@ function audioInit() {
     drone = ctx.createGain();
     drone.gain.value = 0.7;
     drone.connect(master);
-    decodeSounds();
+    decoding = decodeSounds();
   } catch {
     ctx = null;
   }
@@ -95,7 +99,8 @@ export function setDroneLevel(level, timeConstant) {
   if (drone && ctx) drone.gain.setTargetAtTime(level, ctx.currentTime, timeConstant);
 }
 
-export function play(name, vol = 1, offset = 0) {
+// `delay` is in seconds, on the audio clock, so it stays exact whatever the page is doing.
+export function play(name, vol = 1, offset = 0, delay = 0) {
   if (!ctx || muted || !decoded[name]) return null;
   const src = ctx.createBufferSource();
   src.buffer = decoded[name];
@@ -103,7 +108,7 @@ export function play(name, vol = 1, offset = 0) {
   g.gain.value = vol;
   src.connect(g);
   g.connect(master);
-  src.start(0, offset);
+  src.start(delay ? ctx.currentTime + delay : 0, offset);
   return src;
 }
 

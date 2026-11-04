@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GameContext, ROOMS } from "./GameContext.js";
-import { thud } from "./audio.js";
 import { decryptEnding } from "./endingCrypto.js";
 import { ENDING_CIPHER } from "./endingCipher.js";
+import { devAnswers, devScreen } from "./startup.js";
 
 const SCREENS = ["intro", ...ROOMS, "end"];
 
 const initialScreen = () => {
-  const id = location.hash.slice(1);
+  const id = devScreen();
   return ROOMS.includes(id) ? id : "intro";
 };
 
@@ -18,33 +18,18 @@ export function GameProvider({ children }) {
   const [blackout, setBlackout] = useState(false);
   const [ending, setEnding] = useState(null);
 
-  // Read by show() and the hash listener, which must see the latest values immediately.
+  // Read by show(), which must see the latest values immediately.
   const solvedRef = useRef(solved);
-  const currentRef = useRef(screen);
   const answersRef = useRef({});
 
   const show = useCallback((requested) => {
     let id = SCREENS.includes(requested) ? requested : "intro";
     if (id === "end" && !ROOMS.every((room) => solvedRef.current[room])) id = "intro";
-    currentRef.current = id;
     setScreen(id);
     window.scrollTo(0, 0);
-    if (id === "end") thud();
-    try {
-      if (location.hash.slice(1) !== id && id !== "intro") location.hash = id;
-    } catch {
-      // some sandboxed previews forbid changing the address bar
-    }
   }, []);
 
-  const goBack = useCallback(() => {
-    show("intro");
-    try {
-      if (location.hash) location.hash = "";
-    } catch {
-      // see show()
-    }
-  }, [show]);
+  const goBack = useCallback(() => show("intro"), [show]);
 
   const markSolved = useCallback((room, answer) => {
     solvedRef.current = { ...solvedRef.current, [room]: true };
@@ -56,14 +41,21 @@ export function GameProvider({ children }) {
     }
   }, []);
 
+  // ?dev=end on the dev server: solve everything, then go down to the basement.
   useEffect(() => {
-    const onHashChange = () => {
-      const id = location.hash.slice(1) || "intro";
-      if (id !== currentRef.current) show(id);
+    if (!import.meta.env.DEV || devScreen() !== "end") return undefined;
+    let cancelled = false;
+    devAnswers()
+      .then((answers) => {
+        if (cancelled) return;
+        ROOMS.forEach((room) => markSolved(room, answers[room]));
+        show("end");
+      })
+      .catch(() => console.warn("?dev=end needs secrets/ending.json"));
+    return () => {
+      cancelled = true;
     };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, [show]);
+  }, [markSolved, show]);
 
   const value = useMemo(
     () => ({

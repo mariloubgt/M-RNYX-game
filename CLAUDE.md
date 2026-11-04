@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-"ARENA — The Mansion" is a horror escape-room puzzle for a real competition, built with React and Vite and deployed on Vercel. There is no test framework.
+"THE ASYLUM" (the repo and code still say "arena", which is also the event's name) is a horror escape-room puzzle for a real competition, built with React and Vite and deployed on Vercel. There is no test framework.
 
 ```bash
 npm install
@@ -21,8 +21,8 @@ npm run encrypt-ending   # regenerates src/game/endingCipher.js from secrets/end
 
 **React owns structure and game state; scene modules own animation.**
 
-- `src/game/GameProvider.jsx` holds the current screen, solved rooms, team name, and decrypted ending. `show(id)` is the only way to change screens and also syncs `location.hash`. It refuses `end` until all rooms are solved.
-- `src/screens/ward/wardScene.js`, `seance/seanceScene.js`, `kitchen/kitchenScene.js` and `src/game/scares.js` are imperative. They look up elements by id and run the frame-by-frame animation, and their timing is the game's feel. Each exports an `init…()` that a component calls from `useEffect`.
+- `src/game/GameProvider.jsx` holds the current screen, solved rooms, team name, and decrypted ending. `show(id)` is the only way to change screens. It refuses `end` until all rooms are solved.
+- `src/screens/ward/wardScene.js`, `seance/seanceScene.js`, `kitchen/kitchenScene.js`, `basement/basementScene.js` and `src/game/scares.js` are imperative. They look up elements by id and run the frame-by-frame animation, and their timing is the game's feel. Each exports an `init…()` that a component calls from `useEffect`.
 - `src/game/audio.js` is a single module-level audio engine outside React, so only one `AudioContext` exists. Components read its state with `useAudioState()`.
 
 **Rules that keep this working:**
@@ -33,11 +33,13 @@ npm run encrypt-ending   # regenerates src/game/endingCipher.js from secrets/end
 - **CSS import order is the cascade.** `src/styles/index.css` imports files in the original source order, and later files override earlier ones across rooms. Don't reorder them.
 - **`App.jsx` element order is the stacking order.**
 
-The room id `store` is the Kitchen (a leftover name). Opening `#ward`, `#seance`, or `#store` directly skips the opening sequence, which helps when testing one room. Progress lives in memory only, so a reload resets it.
+The room id `store` is the Kitchen (a leftover name). Every page load starts a new game from the title screen: `src/game/startup.js` clears the URL hash, and no game state is saved to browser storage. Keep it that way. For testing, `?dev=ward`, `?dev=seance`, `?dev=store` or `?dev=end` skips the opening sequence on the dev server only (`import.meta.env.DEV`). `?dev=end` reads the answers from `secrets/ending.json`. It starts without sound because browsers block audio until the first click or key press, so press M straight after the page loads to hear the scare.
 
 ## Media
 
 Everything is listed in `src/game/media.js` and lives in `public/media/`. `source-assets/` holds unused originals and is not deployed, including the full-quality `game_background_clean_original.mp4`. Its compressed version in `public/media/video/` is the video that plays after START GAME.
+
+`audio/jumpscare.mp3` and `audio/stinger.mp3` are digital silence, inherited from the prototype. The basement scare uses `audio/witch_laugh.mp3` and `audio/basement_jumpscare.mp3`, the second cut from a real recording in `source-assets/`. A test that only counts started sounds won't notice a silent file.
 
 ## Answers and the ending
 

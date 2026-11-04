@@ -1,3 +1,4 @@
+import GameTitle from "../components/GameTitle.jsx";
 import { useGame } from "../game/GameContext.js";
 import { MENU_ITEMS } from "./menuItems.js";
 
@@ -7,8 +8,8 @@ export default function MainMenu({ visible, selected, solvedCount, onSelect, onA
     <div className={`menu-ui${visible ? " on" : ""}`} id="menuUI">
       <div className="hud-top">
         <div className="hud-logo">
-          <span>ARENA</span>
-          <small>THE MANSION</small>
+          <GameTitle />
+          <small>some patients never left</small>
         </div>
         <div className="hud-tabs">
           <span className="key">Q</span>
@@ -53,6 +54,7 @@ export default function MainMenu({ visible, selected, solvedCount, onSelect, onA
           <div className="pg-label">FLOORS CLEARED <b id="pgCount">{solvedCount} / 3</b></div>
           <div className="pg-bar"><i id="pgFill" style={{ width: `${(solvedCount / 3) * 100}%` }}></i></div>
         </div>
+        <div className="mm-warning">Contains flashing lights and loud sounds.</div>
         <div className="keys"><span className="key">↑↓</span> Navigate <span className="key">ENTER</span> Select <span className="key">M</span> Sound</div>
       </div>
       <div className="build">v0.9 · Arena build · Some content may disturb</div>

@@ -1,14 +1,10 @@
 // Regenerates src/game/endingCipher.js from secrets/ending.json. Run this after changing
-// the ending text or any answer: npm run encrypt-ending
+// the final phrase or any answer: npm run encrypt-ending
 //
 // secrets/ending.json is gitignored and must stay out of the repo. Its shape:
 // {
 //   "answers": { "ward": "...", "seance": "...", "store": "..." },   // upper-case A-Z only
-//   "ending": {
-//     "headline": { "before": "...", "highlight": "...", "after": "..." },
-//     "story": "...",
-//     "phrase": "..."
-//   }
+//   "ending": { "phrase": "..." }
 // }
 import { randomBytes } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";

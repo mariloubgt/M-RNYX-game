@@ -22,12 +22,18 @@
 .hinge-bottom.open .k-panel{transform:rotateX(-64deg);filter:brightness(.4)}
 .k-door.open .k-panel{transform:rotateY(-58deg);filter:brightness(.4)}
 .hinge-drawer .k-panel{transition:transform .6s cubic-bezier(.3,.1,.25,1)}
-.hinge-drawer.open .k-panel{transform:translateY(95%) scale(1.18)}
+/* The closed slot is too shallow for a mark, so the inside pulls out with the front. */
+.hinge-drawer .k-in{transition:bottom .6s cubic-bezier(.3,.1,.25,1)}
+.hinge-drawer.open .k-in{bottom:-120%}
+.hinge-drawer.open .k-panel{transform:translateY(230%) scale(1.18)}
 .hinge-drawer.open{z-index:6}
 .k-doorshade{position:absolute;z-index:4;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.85),rgba(0,0,0,.35));opacity:0;transition:opacity .9s}
 .k-doorshade.on{opacity:1}
 .k-mark{width:80%;height:80%;display:flex;align-items:center;justify-content:center;color:#b3161a;filter:drop-shadow(0 0 4px rgba(200,20,20,.6))}
 .k-mark svg{width:min(100%,64px);height:auto;max-height:100%}
+/* Marks behind a door: placed by the `at` values in kitchenScene.js, always square. */
+.k-in .k-mark{position:absolute;left:0;top:0;height:auto;aspect-ratio:1}
+.k-in .k-mark svg{width:100%;height:100%;max-height:none}
 .k-wallmark{position:absolute;z-index:3;transition:opacity .6s;pointer-events:none;margin:0}
 .k-drag{position:absolute;z-index:5;cursor:grab;touch-action:none;user-select:none;transition:filter .2s}
 .k-drag:hover{filter:brightness(1.3) drop-shadow(0 0 6px rgba(255,210,150,.4))}
